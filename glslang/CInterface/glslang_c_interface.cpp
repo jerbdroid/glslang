@@ -205,6 +205,9 @@ static int c_shader_messages(glslang_messages_t messages)
     CONVERT_MSG(GLSLANG_MSG_HLSL_LEGALIZATION_BIT, EShMsgHlslLegalization);
     CONVERT_MSG(GLSLANG_MSG_HLSL_DX9_COMPATIBLE_BIT, EShMsgHlslDX9Compatible);
     CONVERT_MSG(GLSLANG_MSG_BUILTIN_SYMBOL_TABLE_BIT, EShMsgBuiltinSymbolTable);
+    CONVERT_MSG(GLSLANG_MSG_ENHANCED, EShMsgEnhanced);
+    CONVERT_MSG(GLSLANG_MSG_ABSOLUTE_PATH, EShMsgAbsolutePath);
+    CONVERT_MSG(GLSLANG_MSG_DISPLAY_ERROR_COLUMN, EShMsgDisplayErrorColumn);
     return res;
 #undef CONVERT_MSG
 }
@@ -365,6 +368,15 @@ GLSLANG_EXPORT void glslang_shader_set_options(glslang_shader_t* shader, int opt
 GLSLANG_EXPORT void glslang_shader_set_glsl_version(glslang_shader_t* shader, int version)
 {
     shader->shader->setOverrideVersion(version);
+}
+
+GLSLANG_EXPORT void glslang_shader_set_default_uniform_block_set_and_binding(glslang_shader_t* shader, unsigned int set, unsigned int binding) {
+    shader->shader->setGlobalUniformSet(set);
+    shader->shader->setGlobalUniformBinding(binding);
+}
+
+GLSLANG_EXPORT void glslang_shader_set_default_uniform_block_name(glslang_shader_t* shader, const char *name) {
+    shader->shader->setGlobalUniformBlockName(name);
 }
 
 GLSLANG_EXPORT const char* glslang_shader_get_preprocessed_code(glslang_shader_t* shader)
